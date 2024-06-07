@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda7b0dbc3b7b3e4bb82f67431c10638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 3
   sprintSpeed: 6
   maxStamina: 100
   staminaRegenRate: 10

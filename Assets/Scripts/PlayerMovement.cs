@@ -95,12 +95,14 @@ public class PlayerMovement : MonoBehaviour
             shiftHeld = true;
             StartSprinting();
         }
-        else if (!Input.GetKey(KeyCode.LeftShift))
+        else
         {
+            // Stop sprinting if either shift key is released or stamina is depleted
             shiftHeld = false;
             StopSprinting();
         }
     }
+
 
     // FixedUpdate is called at a fixed interval and is used for physics calculations
     void FixedUpdate()
