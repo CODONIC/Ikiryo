@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float maxStamina = 100f; // Maximum stamina value
     public float staminaRegenRate = 10f; // Rate at which stamina regenerates per second
     public float sprintStaminaCost = 30f; // Stamina cost of sprinting
-    public float sprintCooldownTime = 3f; // Cooldown time before the player can sprint again after stamina reaches zero
-    public float staminaRegenCooldownTime = 2f; // Cooldown time before stamina starts regenerating after sprinting
+    
+
     private float currentStamina; // Current stamina value
     private bool isSprinting; // Flag indicating whether the player is currently sprinting
     private bool canRegenStamina = true; // Flag indicating whether stamina can regenerate
@@ -146,6 +146,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update stamina based on sprinting state
+    // Update stamina based on sprinting state
+    // Update stamina based on sprinting state
     void UpdateStamina()
     {
         if (isSprinting)
@@ -153,20 +155,36 @@ public class PlayerMovement : MonoBehaviour
             // Decrease stamina when sprinting
             currentStamina = Mathf.Max(0f, currentStamina - sprintStaminaCost * Time.fixedDeltaTime);
 
-            // Start sprint cooldown if stamina reaches zero
-            if (currentStamina == 0)
+            // Start the stamina regeneration cooldown when stamina reaches zero
+            if (currentStamina <= 0 && canRegenStamina)
             {
-                sprintCooldownTimer = sprintCooldownTime;
                 canRegenStamina = false;
-                staminaRegenCooldownTimer = staminaRegenCooldownTime;
+                staminaRegenCooldownTimer = 3f; // Set the cooldown timer to 3 seconds
             }
         }
-        else if (canRegenStamina && !isSprinting) // Modify condition here
+        else if (canRegenStamina && !isSprinting)
         {
-            // Increase stamina gradually when not sprinting, and sprint button is not pressed, and can regenerate stamina
-            currentStamina = Mathf.Min(maxStamina, currentStamina + staminaRegenRate * Time.fixedDeltaTime);
+            // Only regenerate stamina if it's not already at zero
+            if (currentStamina > 0)
+            {
+                // Increase stamina gradually when not sprinting, and sprint button is not pressed, and can regenerate stamina
+                currentStamina = Mathf.Min(maxStamina, currentStamina + staminaRegenRate * Time.fixedDeltaTime);
+            }
+        }
+
+        // Update the stamina regeneration cooldown timer
+        if (!canRegenStamina)
+        {
+            staminaRegenCooldownTimer -= Time.deltaTime;
+            if (staminaRegenCooldownTimer <= 0)
+            {
+                canRegenStamina = true;
+            }
         }
     }
+
+
+
 
     void StartSprinting()
     {
