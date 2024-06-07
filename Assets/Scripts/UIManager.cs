@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
         {
             staminaSlider.value = playerMovement.maxStamina;
         }
+
+        // Initially hide stamina UI elements
+        SetStaminaUIVisible(true);
     }
 
     void Update()
@@ -36,7 +39,19 @@ public class UIManager : MonoBehaviour
         if (staminaText != null && playerMovement != null)
         {
             // Display current stamina value in the TextMeshPro component
-            staminaText.text = "Stamina: " + playerMovement.GetCurrentStamina().ToString("F0");
+            staminaText.text = "Stamina: " + playerMovement.GetCurrentStamina().ToString("F0") + "%";
         }
+    }
+
+    public void SetStaminaUIVisible(bool visible)
+    {
+        staminaSlider.gameObject.SetActive(visible);
+        staminaText.gameObject.SetActive(visible);
+    }
+
+    public void HideStaminaUI()
+    {
+        // Hide stamina UI elements
+        SetStaminaUIVisible(false);
     }
 }

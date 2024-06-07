@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 4f; // Normal speed of the player movement
@@ -9,10 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public float maxStamina = 100f; // Maximum stamina value
     public float staminaRegenRate = 10f; // Rate at which stamina regenerates per second
     public float sprintStaminaCost = 30f; // Stamina cost of sprinting
-    
 
     private float currentStamina; // Current stamina value
-    private bool isSprinting; // Flag indicating whether the player is currently sprinting
+    public bool isSprinting; // Flag indicating whether the player is currently sprinting
     private bool canRegenStamina = true; // Flag indicating whether stamina can regenerate
     private float sprintCooldownTimer; // Timer for sprint cooldown
     private float staminaRegenCooldownTimer; // Timer for stamina regeneration cooldown
@@ -24,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     public Joystick joystick; // Reference to the joystick
     public Button sprintButton; // Reference to the sprint button
 
+    private UIManager uiManager; // Reference to the UIManager
+    private bool staminaUIVisible; // Flag to track if the stamina UI is visible
+    private bool shiftHeld; // Flag to track if the shift key is held down
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,20 +34,23 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         currentStamina = maxStamina; // Set initial stamina value to max
 
+        uiManager = FindObjectOfType<UIManager>(); // Get reference to UIManager
+        staminaUIVisible = false; // Initially the stamina UI is not visible
+        shiftHeld = false; // Initially the shift key is not held down
+
         // Register button events
         if (sprintButton != null)
         {
-            EventTrigger trigger = sprintButton.gameObject.AddComponent<EventTrigger>();
-
-            EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
-            pointerDownEntry.eventID = EventTriggerType.PointerDown;
-            pointerDownEntry.callback.AddListener((data) => { StartSprinting(); });
-            trigger.triggers.Add(pointerDownEntry);
-
-            EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
-            pointerUpEntry.eventID = EventTriggerType.PointerUp;
-            pointerUpEntry.callback.AddListener((data) => { StopSprinting(); });
-            trigger.triggers.Add(pointerUpEntry);
+            sprintButton.onClick.AddListener(() => {
+                if (isSprinting)
+                {
+                    StopSprinting();
+                }
+                else
+                {
+                    StartSprinting();
+                }
+            });
         }
     }
 
@@ -74,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Update stamina regeneration cooldown timer
-        if (!canRegenStamina && currentStamina > 0) // Adjusted condition
+        if (!canRegenStamina)
         {
             staminaRegenCooldownTimer -= Time.deltaTime;
             if (staminaRegenCooldownTimer <= 0)
@@ -83,15 +89,15 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // Check if the player is sprinting
-        if (keyboardInput.magnitude > 0 && Input.GetKey(KeyCode.LeftShift) && currentStamina >= sprintStaminaCost * Time.fixedDeltaTime && sprintCooldownTimer <= 0)
+        // Check if the player should start or stop sprinting based on keyboard input
+        if (Input.GetKey(KeyCode.LeftShift) && isMoving && currentStamina > 0 && sprintCooldownTimer <= 0)
         {
+            shiftHeld = true;
             StartSprinting();
         }
-
-        // Stop sprinting if the player is not moving or doesn't have enough stamina or cooldown is active
-        if (!isMoving || currentStamina < sprintStaminaCost * Time.fixedDeltaTime || sprintCooldownTimer > 0)
+        else if (!Input.GetKey(KeyCode.LeftShift))
         {
+            shiftHeld = false;
             StopSprinting();
         }
     }
@@ -146,8 +152,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update stamina based on sprinting state
-    // Update stamina based on sprinting state
-    // Update stamina based on sprinting state
     void UpdateStamina()
     {
         if (isSprinting)
@@ -155,44 +159,28 @@ public class PlayerMovement : MonoBehaviour
             // Decrease stamina when sprinting
             currentStamina = Mathf.Max(0f, currentStamina - sprintStaminaCost * Time.fixedDeltaTime);
 
-            // Start the stamina regeneration cooldown when stamina reaches zero
-            if (currentStamina <= 0 && canRegenStamina)
-            {
-                canRegenStamina = false;
-                staminaRegenCooldownTimer = 3f; // Set the cooldown timer to 3 seconds
-            }
+            // Start the stamina regeneration cooldown every time stamina is reduced
+            canRegenStamina = false;
+            staminaRegenCooldownTimer = 2f; // Set the cooldown timer to 2 seconds
         }
-        else if (canRegenStamina && !isSprinting)
+        else if (canRegenStamina)
         {
-            // Only regenerate stamina if it's not already at zero
-            if (currentStamina > 0)
-            {
-                // Increase stamina gradually when not sprinting, and sprint button is not pressed, and can regenerate stamina
-                currentStamina = Mathf.Min(maxStamina, currentStamina + staminaRegenRate * Time.fixedDeltaTime);
-            }
-        }
-
-        // Update the stamina regeneration cooldown timer
-        if (!canRegenStamina)
-        {
-            staminaRegenCooldownTimer -= Time.deltaTime;
-            if (staminaRegenCooldownTimer <= 0)
-            {
-                canRegenStamina = true;
-            }
+            // Regenerate stamina when not sprinting and allowed to regenerate
+            currentStamina = Mathf.Min(maxStamina, currentStamina + staminaRegenRate * Time.fixedDeltaTime);
         }
     }
-
-
-
 
     void StartSprinting()
     {
         isSprinting = true;
+       
     }
 
     void StopSprinting()
     {
         isSprinting = false;
+       
     }
+
+   
 }
