@@ -15,7 +15,7 @@ public class PlayerAwarenessController : MonoBehaviour
 
     private void Awake()
     {
-        _player = FindObjectOfType<PlayerMovement>().transform;
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
