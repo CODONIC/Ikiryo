@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 407507719}
   - component: {fileID: 407507721}
+  - component: {fileID: 407507722}
   - component: {fileID: 407507720}
   m_Layer: 5
   m_Name: IkiryoText
@@ -158,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 18, y: -68}
+  m_AnchoredPosition: {x: 25, y: 15}
   m_SizeDelta: {x: -830.6675, y: -425.7925}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &407507720
@@ -174,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.735849, g: 0.10065861, b: 0.14189242, a: 1}
+  m_Color: {r: 0.9137255, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -199,6 +200,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407507718}
   m_CullTransparentMesh: 1
+--- !u!114 &407507722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407507718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09709fc9acde764baa2685944237dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 13
+  frequency: 1
 --- !u!1 &655143500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,6 +1159,7 @@ GameObject:
   - component: {fileID: 1719141126}
   - component: {fileID: 1719141125}
   - component: {fileID: 1719141130}
+  - component: {fileID: 1719141131}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1263,7 +1279,103 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a182c61e4e6d61e48a7a623673c585fb, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.526
+  m_Volume: 0.748
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &1719141131
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719141124}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 87a2b93f54b409e43b3470061306df1b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.324
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1406,7 +1518,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 38b1c23052e9a7546ab86d4dfc6a22f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ceb7985a7f0051489fe0eed53c8a187, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
