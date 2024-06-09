@@ -1,7 +1,9 @@
+// PlayerMovement.cs
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 4f; // Normal speed of the player movement
@@ -103,7 +105,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     // FixedUpdate is called at a fixed interval and is used for physics calculations
     void FixedUpdate()
     {
@@ -175,14 +176,28 @@ public class PlayerMovement : MonoBehaviour
     void StartSprinting()
     {
         isSprinting = true;
-       
     }
 
     void StopSprinting()
     {
         isSprinting = false;
-       
     }
 
-   
+    public void ResetPlayerDirection()
+    {
+        // Reset player direction (optional)
+    }
+
+    public Vector2 GetMovementInput()
+    {
+        // Get input from joystick or keyboard
+        Vector2 joystickInput = new Vector2(joystick.Horizontal, joystick.Vertical);
+        Vector2 keyboardInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        // Prioritize keyboard input if any key is pressed, otherwise use joystick input
+        return joystickInput.magnitude > 0 ? joystickInput : keyboardInput;
+    }
+
+
 }
+
