@@ -1,5 +1,119 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2024363084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2024363086}
+  - component: {fileID: 7281696055040652837}
+  - component: {fileID: 6249196149502856219}
+  - component: {fileID: 2024363085}
+  m_Layer: 0
+  m_Name: FlashlightObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2024363086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024363084}
+  m_LocalRotation: {x: -0.0022495773, y: -0.002209218, z: -0.7134745, w: 0.7006742}
+  m_LocalPosition: {x: -0.11, y: -0.256, z: -0.001}
+  m_LocalScale: {x: -0.07350927, y: 0.081667714, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6724059931901683851}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -0.361, y: 0.007, z: -91.037}
+--- !u!114 &7281696055040652837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024363084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69fff7c9d34658e4ab7fb43fe9d8956a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashlight: {fileID: 0}
+  power: 100
+  powerDecayRate: 5
+  powerRegenRate: 10
+--- !u!114 &6249196149502856219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024363084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c17d3d76b120f0441a76a15a7504e988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &2024363085
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024363084}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 100
+  m_Sprite: {fileID: 21300000, guid: b1b9a580ca3adf2488a5521fe03fbf56, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &6724059930603638470
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6724059930603638469}
   - component: {fileID: 6724059930603638467}
-  - component: {fileID: 6724059930603638468}
+  - component: {fileID: 2104187290}
   m_Layer: 0
   m_Name: FlashLight
   m_TagString: Untagged
@@ -25,9 +139,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6724059930603638470}
-  m_LocalRotation: {x: -0, y: -0, z: 0.99984694, w: 0.017497057}
-  m_LocalPosition: {x: -0.032, y: 0.188, z: 0}
-  m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 1}
+  m_LocalRotation: {x: 0.000018015155, y: 0.003152922, z: 0.99991834, w: 0.012388676}
+  m_LocalPosition: {x: -0.13448207, y: -0.26379108, z: -0.0009480826}
+  m_LocalScale: {x: 0.527536, y: 0.6116617, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6724059931901683851}
@@ -112,7 +226,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &6724059930603638468
+--- !u!114 &2104187290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,6 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bd190e2c0a68c42b87fe0af2e8ad25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  referenceTransform: {fileID: 2024363086}
+  flashlightGameObject: {fileID: 0}
 --- !u!1 &6724059931901683855
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +275,7 @@ Transform:
   m_Children:
   - {fileID: 6724059931979081305}
   - {fileID: 6724059930603638469}
+  - {fileID: 2024363086}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

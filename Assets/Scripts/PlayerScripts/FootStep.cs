@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class FootStep : MonoBehaviour
 {
+    public Animator animator;
     public AudioSource footstepSounds;
     public AudioSource sprintSounds;
+    public float walkingSpeed = 0.46f; // 30/65 to adjust to your walking animation sample frame
+    public float sprintingSpeed = 1f; // Default speed for sprinting animation sample frame
 
     void Update()
     {
@@ -18,6 +21,7 @@ public class FootStep : MonoBehaviour
                     sprintSounds.Play();
                     footstepSounds.Stop();
                 }
+                animator.speed = sprintingSpeed;
             }
             else
             {
@@ -26,6 +30,7 @@ public class FootStep : MonoBehaviour
                     footstepSounds.Play();
                     sprintSounds.Stop();
                 }
+                animator.speed = walkingSpeed;
             }
         }
         else
@@ -35,6 +40,7 @@ public class FootStep : MonoBehaviour
                 footstepSounds.Stop();
                 sprintSounds.Stop();
             }
+            animator.speed = 0f; // Stop animation when no movement
         }
     }
 }
