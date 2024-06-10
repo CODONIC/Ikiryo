@@ -10,16 +10,17 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     private float _rotationSpeed;
 
-    [SerializeField]
-    private AudioSource _idleAudioSource;
-
-    [SerializeField]
-    private AudioSource _chaseAudioSource;
-
     private Rigidbody2D _rigidbody;
     private PlayerAwarenessController _playerAwarenessController;
     private Vector2 _targetDirection;
     private bool _isChasing;
+
+    [Header("Audio Settings")]
+    public AudioSource backgroundMusicSource;
+    public AudioSource chaseMusicSource;
+    public float fadeDuration = 1f;
+    private Coroutine currentCoroutine = null;
+    private bool isChaseMusicPlaying = false;
 
     private void Awake()
     {
@@ -29,7 +30,8 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        _idleAudioSource.Play();
+        backgroundMusicSource.Play();
+        chaseMusicSource.Stop();
     }
 
     private void FixedUpdate()
@@ -82,21 +84,61 @@ public class EnemyMovement : MonoBehaviour
 
     private void ManageAudio()
     {
-        if (_isChasing)
+        if (_playerAwarenessController.AwareOfPlayer && !isChaseMusicPlaying)
         {
-            if (!_chaseAudioSource.isPlaying)
+            if (currentCoroutine != null)
             {
-                _idleAudioSource.Stop();
-                _chaseAudioSource.Play();
+                StopCoroutine(currentCoroutine);
             }
+            currentCoroutine = StartCoroutine(FadeToChaseMusic());
+            isChaseMusicPlaying = true;
         }
-        else
+        else if (!_playerAwarenessController.AwareOfPlayer && isChaseMusicPlaying)
         {
-            if (!_idleAudioSource.isPlaying)
+            if (currentCoroutine != null)
             {
-                _chaseAudioSource.Stop();
-                _idleAudioSource.Play();
+                StopCoroutine(currentCoroutine);
             }
+            currentCoroutine = StartCoroutine(FadeToBackgroundMusic());
+            isChaseMusicPlaying = false;
         }
+    }
+
+    IEnumerator FadeToChaseMusic()
+    {
+        float timer = 0f;
+        chaseMusicSource.volume = 0f;
+        chaseMusicSource.Play();
+
+        while (timer < fadeDuration)
+        {
+            backgroundMusicSource.volume = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+            chaseMusicSource.volume = Mathf.Lerp(0f, 1f, timer / fadeDuration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        backgroundMusicSource.Pause();
+        chaseMusicSource.volume = 1f;
+        currentCoroutine = null;
+    }
+
+    IEnumerator FadeToBackgroundMusic()
+    {
+        float timer = 0f;
+        backgroundMusicSource.volume = 0f;
+        backgroundMusicSource.UnPause();
+
+        while (timer < fadeDuration)
+        {
+            chaseMusicSource.volume = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+            backgroundMusicSource.volume = Mathf.Lerp(0f, 1f, timer / fadeDuration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        chaseMusicSource.Stop();
+        backgroundMusicSource.volume = 1f;
+        currentCoroutine = null;
     }
 }
