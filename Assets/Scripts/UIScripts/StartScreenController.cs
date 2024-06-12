@@ -72,7 +72,7 @@ public class StartScreenController : MonoBehaviour
     public void LoadNextLevel()
     {
         
-            StartCoroutine(SceneTransition(1)); // Load scene with build index 1
+            StartCoroutine(SceneTransition(2)); // Load scene with build index 1
         
 
     }

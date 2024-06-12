@@ -7,6 +7,6 @@ public class SceneLoaderForMainStory : MonoBehaviour
 {
     void OnEnable()
     {
-        SceneManager.LoadScene("StarterRoom", LoadSceneMode.Single);
+        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
     }
 }
