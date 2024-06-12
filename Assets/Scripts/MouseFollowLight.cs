@@ -42,6 +42,7 @@ public class MouseFollowLight : MonoBehaviour
 
         // Initially turn off the flashlight
         spotlight2D.enabled = false;
+        flashlightGameObject.SetActive(false);
     }
 
 

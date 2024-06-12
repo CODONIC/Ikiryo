@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FirstRoom.unity
     guid: 4debd551781f6d647ab9530f2d88dae8
+  - enabled: 1
+    path: Assets/Scenes/Test Scene Zach.unity
+    guid: 6044f2ddbc7f9cf44b3ed1cd01bbaa48
   m_configObjects: {}

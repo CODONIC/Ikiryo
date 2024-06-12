@@ -42,8 +42,8 @@ public class DoorInteraction : MonoBehaviour
     public void GetOut()
     {
         // Load the next scene, replace "NextScene" with your scene name
-        UnityEngine.SceneManagement.SceneManager.LoadScene("FirstRoom");
-    }
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Test Scene Zach");
+    }   
 
     public void Stay()
     {

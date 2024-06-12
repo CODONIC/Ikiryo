@@ -30,7 +30,7 @@ public class Flashlight : MonoBehaviour
         if (isLightOn)
         {
             // Calculate the decay rate per second to make it last for 5 minutes
-            float decayRatePerSecond = power / (5 * 60); // 5 minutes in seconds
+            float decayRatePerSecond = power / (3 * 60); // 5 minutes in seconds
 
             // If the light is on, decrement power over time
             if (power > 0)
