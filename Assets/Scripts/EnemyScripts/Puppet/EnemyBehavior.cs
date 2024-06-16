@@ -6,23 +6,33 @@ public class EnemyBehavior : MonoBehaviour
     public GameObject flashlight;
     private Rigidbody2D rb;
     public float speed = 3f;
+    private bool isInFlashlight = false;
+    private Vector2 moveDirection;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        moveDirection = (player.position - transform.position).normalized;
     }
 
     void Update()
     {
-        // Call IsInFlashlightCone and log the result
-        bool isInFlashlightCone = IsInFlashlightCone();
-        Debug.Log("Is in flashlight cone: " + isInFlashlightCone);
+        // Update move direction towards the player
+        moveDirection = (player.position - transform.position).normalized;
+
+        // Check if the path towards the player is blocked
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, Mathf.Infinity, LayerMask.GetMask("Obstacle"));
+        if (hit.collider != null)
+        {
+            // Path is obstructed, find an alternative direction
+            Vector2 obstacleNormal = hit.normal;
+            moveDirection = Vector2.Reflect(moveDirection, obstacleNormal).normalized;
+        }
 
         // Chase the player only if not in the flashlight cone
-        if (!isInFlashlightCone)
+        if (!isInFlashlight)
         {
-            Vector2 direction = (player.position - transform.position).normalized;
-            rb.velocity = direction * speed;
+            rb.velocity = moveDirection * speed;
         }
         else
         {
@@ -31,26 +41,21 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    bool IsInFlashlightCone()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        // Vector from flashlight to enemy
-        Vector2 toEnemy = (Vector2)transform.position - (Vector2)flashlight.transform.position;
-        // Angle between flashlight direction and direction to enemy
-        float angle = Vector2.Angle(flashlight.transform.right, toEnemy);
-
-        // Get the Light2D component
-        var light2D = flashlight.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
-        float outerAngle = light2D.pointLightOuterAngle / 2f;
-        float outerRadius = light2D.pointLightOuterRadius;
-
-        Debug.Log($"Angle to enemy: {angle}, Light outer angle: {outerAngle}, Distance to enemy: {toEnemy.magnitude}, Light outer radius: {outerRadius}");
-
-        // Check if the enemy is within the light cone
-        if (angle < outerAngle && toEnemy.magnitude < outerRadius)
+        if (other.gameObject == flashlight)
         {
-            Debug.Log("Enemy is within angle and radius.");
-            return true;
+            isInFlashlight = true;
+            Debug.Log("Enemy entered flashlight cone");
         }
-        return false;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject == flashlight)
+        {
+            isInFlashlight = false;
+            Debug.Log("Enemy exited flashlight cone");
+        }
     }
 }

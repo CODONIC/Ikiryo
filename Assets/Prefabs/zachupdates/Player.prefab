@@ -46,10 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69fff7c9d34658e4ab7fb43fe9d8956a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashlight: {fileID: 0}
+  lightObject: {fileID: 6724059930603638470}
   power: 100
   powerDecayRate: 5
   powerRegenRate: 10
+  isLightOn: 0
+  powerSlider: {fileID: 0}
+  powerText: {fileID: 0}
 --- !u!114 &6249196149502856219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +128,7 @@ GameObject:
   - component: {fileID: 6724059930603638469}
   - component: {fileID: 6724059930603638467}
   - component: {fileID: 2104187290}
+  - component: {fileID: 4119341438209892713}
   m_Layer: 0
   m_Name: FlashLight
   m_TagString: Untagged
@@ -239,7 +243,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceTransform: {fileID: 2024363086}
-  flashlightGameObject: {fileID: 0}
+  flashlightGameObject: {fileID: 2024363084}
+--- !u!60 &4119341438209892713
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724059930603638470}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.033004243, y: 10.119195}
+      - {x: -4.2119017, y: 9.400218}
+      - {x: -0.0260728, y: 0.17845613}
+      - {x: 0.062245727, y: 0.3672738}
+      - {x: 4.225113, y: 9.582313}
 --- !u!1 &6724059931901683855
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6724059931979081305
 Transform:
   m_ObjectHideFlags: 0
@@ -433,7 +467,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6724059931979081306}
-  m_LocalRotation: {x: -0, y: -0, z: 0.5378651, w: 0.8430309}
+  m_LocalRotation: {x: -0, y: -0, z: 0.5217733, w: 0.8530842}
   m_LocalPosition: {x: -0.018, y: -0.126, z: 0}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 1}
   m_ConstrainProportionsScale: 0
@@ -509,7 +543,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.23121251
-  m_PointLightOuterRadius: 0.82919353
+  m_PointLightOuterRadius: 1.6985545
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

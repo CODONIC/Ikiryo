@@ -37,7 +37,7 @@ public class Flashlight : MonoBehaviour
             {
                 power -= decayRatePerSecond * Time.deltaTime;
             }
-            else
+            else if (power <=0)
             {
                 // If power reaches zero, turn off the light
                 lightComponent.enabled = false;

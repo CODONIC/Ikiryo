@@ -16,6 +16,8 @@ public class MouseFollowLight : MonoBehaviour
     // Public fields to specify the reference GameObject for the light's position and the flashlight GameObject
     public Transform referenceTransform;
     public GameObject flashlightGameObject;
+    public GameObject Light;
+
 
     void Start()
     {
@@ -43,6 +45,7 @@ public class MouseFollowLight : MonoBehaviour
         // Initially turn off the flashlight
         spotlight2D.enabled = false;
         flashlightGameObject.SetActive(false);
+       
     }
 
 
@@ -64,6 +67,8 @@ public class MouseFollowLight : MonoBehaviour
 
             // Hide or show the flashlight GameObject based on the light state
             flashlightGameObject.SetActive(flashlightMode);
+
+            Light.SetActive(true);
         }
 
         if (!flashlightMode)
