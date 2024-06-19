@@ -127,7 +127,7 @@ public class MouseFollowLight : MonoBehaviour
             Vector2 movementDirection = new Vector2(horizontalInput, verticalInput).normalized;
 
             // Determine move speed based on sprinting
-            float currentMoveSpeed = isSprinting ? moveSpeed * 2 : moveSpeed;
+            float currentMoveSpeed = isSprinting ? moveSpeed * 1 : moveSpeed;
 
             // Move the player based on the movement direction and speed
             playerTransform.Translate(movementDirection * currentMoveSpeed * Time.deltaTime);

@@ -6,12 +6,12 @@ using TMPro;
 public class Flashlight : MonoBehaviour
 {
     public GameObject lightObject; // Reference to the GameObject containing the 2D light
-    public float power = 100f; // Initial power level
-    public float powerDecayRate = 5f; // Rate at which power decreases per second when light is on
-    public float powerRegenRate = 10f; // Rate at which power regenerates per second when light is off
+    public float power = 100f; // Initial power level, assuming full power is 100%
+    private float powerDecayRate = 100f / 120f; // Decay rate to deplete power in 60 seconds
 
     public bool isLightOn = false;
     private Light2D lightComponent;
+    public GameObject flashlightGameObject;
 
     // Reference to the UI Slider
     public Slider powerSlider;
@@ -29,18 +29,19 @@ public class Flashlight : MonoBehaviour
     {
         if (isLightOn)
         {
-            // Calculate the decay rate per second to make it last for 5 minutes
-            float decayRatePerSecond = power / (3 * 60); // 5 minutes in seconds
-
             // If the light is on, decrement power over time
             if (power > 0)
             {
-                power -= decayRatePerSecond * Time.deltaTime;
+                power -= powerDecayRate * Time.deltaTime;
             }
-            else if (power <=0)
+
+            // If power reaches zero, turn off the light
+            if (power <= 0)
             {
-                // If power reaches zero, turn off the light
+                power = 0;
                 lightComponent.enabled = false;
+                flashlightGameObject.SetActive(false);
+
                 isLightOn = false;
             }
         }
@@ -54,8 +55,12 @@ public class Flashlight : MonoBehaviour
 
     public void ToggleLight()
     {
-        isLightOn = !isLightOn;
-        lightComponent.enabled = isLightOn;
+        if (power > 0) // Only allow toggling on if there is power
+        {
+            isLightOn = !isLightOn;
+            lightComponent.enabled = isLightOn;
+            flashlightGameObject.SetActive(isLightOn);
+        }
     }
 
     // Method to update the UI Slider and TextMeshPro text
@@ -68,7 +73,7 @@ public class Flashlight : MonoBehaviour
 
         if (powerText != null)
         {
-            powerText.text =  Mathf.RoundToInt(power) + "%";
+            powerText.text = Mathf.RoundToInt(power) + "%";
         }
     }
 }
